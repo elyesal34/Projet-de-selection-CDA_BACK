@@ -7,4 +7,7 @@ router.get('/blagues', jokeController.getAllJokes);
 router.get('/blagues/:id', jokeController.getJokeById);
 router.get('/blagues/random', jokeController.getRandomJoke);
 
+router.put('/blagues/:id', jokeController.updateJoke);
+router.delete('/blagues/:id', jokeController.deleteJoke);
+
 module.exports = router;
