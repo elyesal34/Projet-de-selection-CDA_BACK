@@ -20,6 +20,9 @@ exports.getJokeById = async (req, res) => {
 
 exports.getRandomJoke = async (req, res) => {
   const jokes = await Joke.findAll();
+  if (!jokes || jokes.length === 0) {
+    return res.status(404).json({ error: 'Joke not found' });
+  }
   const random = jokes[Math.floor(Math.random() * jokes.length)];
   res.json(random);
 };
