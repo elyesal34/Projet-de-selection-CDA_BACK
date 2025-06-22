@@ -35,3 +35,14 @@ exports.updateJoke = async (req, res) => {
     res.status(404).json({ error: 'Joke not found' });
   }
 };
+
+exports.deleteJoke = async (req, res) => {
+  const { id } = req.params;
+  const joke = await Joke.findByPk(id);
+  if (joke) {
+    await joke.destroy();
+    res.status(204).send();
+  } else {
+    res.status(404).json({ error: 'Joke not found' });
+  }
+};
