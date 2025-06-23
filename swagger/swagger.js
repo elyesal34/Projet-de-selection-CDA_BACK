@@ -1,22 +1,15 @@
-const swaggerJSDoc = require('swagger-jsdoc');
+const swaggerAutogen = require('swagger-autogen')();
 
-const swaggerDefinition = {
-  openapi: '3.0.0',
+const doc = {
   info: {
-    title: 'Carambar API',
-    version: '1.0.0',
-    description: 'API de blagues Carambar',
+    title: 'API Blagues',
+    description: 'Une API pour gérer des blagues.',
   },
-  servers: [
-    {
-      url: 'http://localhost:3000',
-    },
-  ],
+  host: 'localhost:3000',
+  schemes: ['http'],
 };
 
-const options = {
-  swaggerDefinition,
-  apis: ['./routes/*.js'],
-};
+const outputFile = './swagger-output.json';
+const endpointsFiles = ['./app.js']; // Chemin vers ton fichier principal
 
-module.exports = swaggerJSDoc(options);
+swaggerAutogen(outputFile, endpointsFiles, doc);
