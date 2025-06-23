@@ -19,13 +19,14 @@ exports.getJokeById = async (req, res) => {
 };
 
 exports.getRandomJoke = async (req, res) => {
-  const jokes = await Joke.findAll();
+  const jokes = await Joke.find();
+  const random = jokes[Math.floor(Math.random() * jokes.length)];
+  res.json(random);
   if (!jokes || jokes.length === 0) {
     return res.status(404).json({ error: 'Joke not found' });
   }
-  const random = jokes[Math.floor(Math.random() * jokes.length)];
-  res.json(random);
 };
+
 exports.updateJoke = async (req, res) => {
   const { id } = req.params;
   const { question, answer } = req.body;
