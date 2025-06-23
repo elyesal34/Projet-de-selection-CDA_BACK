@@ -4,14 +4,14 @@ const cors = require('cors');
 const { sequelize } = require('./models');
 const jokeRoutes = require('./routes/jokeRoutes');
 const swaggerUi = require('swagger-ui-express');
-const swaggerFile = require('./swagger-output.json');
+const swaggerSpec = require('./swagger/swagger');
 
 const app = express();
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use('/api', jokeRoutes);
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerFile));
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 sequelize.sync().then(() => {
   console.log('Database synced');
