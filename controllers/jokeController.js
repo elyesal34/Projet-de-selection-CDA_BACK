@@ -19,13 +19,18 @@ exports.getJokeById = async (req, res) => {
 };
 
 exports.getRandomJoke = async (req, res) => {
-  const jokes = await Joke.find();
-  const random = jokes[Math.floor(Math.random() * jokes.length)];
-  res.json(random);
-  if (!jokes || jokes.length === 0) {
-    return res.status(404).json({ error: 'Joke not found' });
+  try {
+    const jokes = await Joke.findAll(); 
+    if (jokes.length === 0) {
+      return res.status(404).json({ error: "No jokes found" });
+    }
+    const random = jokes[Math.floor(Math.random() * jokes.length)];
+    res.json(random);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 };
+
 
 exports.updateJoke = async (req, res) => {
   const { id } = req.params;
